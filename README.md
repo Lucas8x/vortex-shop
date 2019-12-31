@@ -1,2 +1,2 @@
 # vortex-shop
- Online Game Shop Project
+ Online Game Store
