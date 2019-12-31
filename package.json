@@ -1,0 +1,21 @@
+{
+  "name": "vortex-shop",
+  "version": "1.0.0",
+  "description": "game store",
+  "scripts": {
+    "server": "cd backend/ && npm install && npm run start",
+    "server-dev": "cd backend/ && npm install && npm run dev",
+
+    "client-dev": "cd frontend/ && npm install && npm run start",
+    "client-build": "cd frontend/ && npm install && npm run build",
+
+    "start": "npm run client-build && npm run server",
+    "dev": "concurrently \"npm run server-dev \" \"npm run client-dev\" "
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.2"
+  },
+  "engines": {
+    "node": "12.13.1"
+  }
+}
