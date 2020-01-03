@@ -7,7 +7,7 @@ module.exports = {
     try {
       const storeGames = await Game.find({}, '-_id steam_id name cover price')
       return res.json(storeGames)
-    }catch(e) {
+    } catch(e) {
       console.log(`Store Index error: ${e}`)
       return res.sendStatus(404)
     }

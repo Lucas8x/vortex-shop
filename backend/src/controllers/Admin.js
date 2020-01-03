@@ -8,15 +8,15 @@ module.exports = {
   async get(req, res) {
     try {
       const {admin_key} = req.body
-    
+
       if(admin_key ===  process.env.SECRET_KEY) { // só para teste
-        res.sendStatus(200)
+        return res.sendStatus(200)
       } else {
-        res.sendStatus(401)
+        return res.sendStatus(401)
       }
     } catch (e) {
       console.log(`[GET] Admin Error ${e}`)
-      res.sendStatus(404)
+      return res.sendStatus(404)
     }
   },
 
@@ -35,8 +35,8 @@ module.exports = {
               const steam_response = await axios.get(`${steam_api}${Id}`)
               const {name, header_image} = steam_response.data[Id].data
               const {initial} = steam_response.data[Id]["data"]["price_overview"]
-              
-              const game = await Game.create({
+
+              await Game.create({
                 steam_id: Id,
                 name,
                 cover: header_image,
@@ -47,24 +47,25 @@ module.exports = {
           });
           return res.sendStatus(200)
         } 
-        
         else if(action === 'delGame') {
           const {gameID} = req.body
           const targetGame = await Game.findOne({steam_id: gameID})
   
           if(!targetGame) {
-            res.send(`Jogo não existe`)
+            return res.send('Jogo não existe')
           }
-  
+
           await Game.deleteOne({steam_id: gameID})
-          
+
           console.log(`[ADMIN] Deletado Jogo > ID: ${gameID} Nome: ${targetGame.name}`)
           return res.send("Jogo Removido.")
+        }
+        else if(action === 'delUser') {
         }
       } else {
         return res.sendStatus(401)
       }
-    
+
     } catch (e) {
       console.log(`[POST] Admin Error ${e}`)
       return res.sendStatus(404)
