@@ -1,4 +1,3 @@
-const axios = require('axios')
 const User = require('../models/User')
 const Game = require('../models/Game')
 
@@ -7,8 +6,8 @@ module.exports = {
     try {
       const storeGames = await Game.find({}, '-_id steam_id name cover price')
       return res.json(storeGames)
-    } catch(e) {
-      console.log(`Store Index error: ${e}`)
+    } catch (err) {
+      console.log(`Store Index error: ${err}`)
       return res.sendStatus(404)
     }
   },
@@ -16,23 +15,28 @@ module.exports = {
   async purchase(req, res) {
     try {
       const {username, gameID} = req.body
-      const loggedUser = await User.findOne({username})
       const targetGame = await Game.findOne({steam_id: gameID})
 
       if(!targetGame) {
         return res.sendStatus(400).json({error: "Game doesnt exists"})
       } 
 
+      const loggedUser = await User.findOne({username})
+
       if(!loggedUser.ownedGames.includes(targetGame._id)) {
         loggedUser.ownedGames.push(targetGame._id)
         await loggedUser.save()
         console.log(`${loggedUser.username} bought ${targetGame.name}`)
+        return res.json({"purchased": true})
+      } 
+      else {
+        console.log(`${loggedUser.username} tried buy ${targetGame.name}`)
+        return res.json({"alreadyOwn": true})
       }
-      return res.json(loggedUser)
 
-    } catch(e) {
-      console.log(`Purchase Error: ${e}`)
-      return res.json({"purchase": false})
+    } catch (err) {
+      console.log(`Purchase Error: ${err}`)
+      return res.json({"purchased": false})
     }
   }
 }
