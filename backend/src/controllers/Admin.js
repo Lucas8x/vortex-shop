@@ -9,7 +9,7 @@ module.exports = {
     try {
       const {admin_key} = req.body
 
-      if(admin_key ===  process.env.SECRET_KEY) { // só para teste
+      if(admin_key ===  process.env.ADMIN_KEY) { // só para teste
         return res.sendStatus(200)
       } else {
         return res.sendStatus(401)
@@ -24,7 +24,7 @@ module.exports = {
     try {
       const {action, admin_key} = req.body
 
-      if(admin_key ===  process.env.SECRET_KEY) { // só pra teste
+      if(admin_key ===  process.env.ADMIN_KEY) { // só pra teste
         if(action === 'addGame') {
           const {gamesID} = req.body
 
@@ -61,7 +61,7 @@ module.exports = {
     try {
       const {action, admin_key} = req.body
 
-      if(admin_key ===  process.env.SECRET_KEY) {
+      if(admin_key ===  process.env.ADMIN_KEY) {
         if(action === 'delGame') {
           const {game_id} = req.body
           const targetGame = await Game.findOne({steam_id: game_id})

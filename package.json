@@ -1,20 +1,19 @@
 {
-  "name": "vortex-shop",
+  "name": "vortex-store",
   "version": "1.0.0",
   "description": "game store",
   "scripts": {
     "build-client": "cd frontend/ && npm install && npm run build",
     "build-server": "cd backend/ && npm install",
     "build": "npm run build-client && npm run build-server",
-    
     "start": "cd backend/ && npm run start",
-
     "client-dev": "cd frontend/ && npm install && npm run start",
     "server-dev": "cd backend/ && npm install && npm run dev",
     "dev": "concurrently \"npm run server-dev \" \"npm run client-dev\" "
   },
   "devDependencies": {
-    "concurrently": "^5.0.2"
+    "concurrently": "^5.0.2",
+    "eslint": "^6.8.0"
   },
   "engines": {
     "node": "12.13.1"

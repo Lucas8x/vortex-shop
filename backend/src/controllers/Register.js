@@ -1,6 +1,5 @@
 const axios = require('axios')
-/*const bcrypt = require('bcrypt')
-const saltRounds = 10;*/
+const bcrypt = require('bcryptjs')
 
 const User = require('../models/User')
 
@@ -17,18 +16,15 @@ module.exports = {
       const response = await axios.get(`https://api.github.com/users/${username}`)
       const {name, avatar_url} = response.data
 
-      /*bcrypt.hash(password, saltRounds, function(err, hash) {
-      })*/
-
       const user = await User.create({
         username,
-        //password,
-        //email,
+        password: bcrypt.hashSync(password, 10),
+        email,
         name,
         avatar: avatar_url
       })
 
-      console.log(`Nova conta criada: ${username}`)
+      console.log(`New user created: ${username}`)
 
       return res.json(user)
 
