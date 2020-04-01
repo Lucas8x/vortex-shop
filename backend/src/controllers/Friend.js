@@ -3,7 +3,7 @@ module.exports = {
     try {
       //
     } catch (err) {
-      return res.sendStatus(500)
+      return res.sendStatus(500);
     }
   },
 
@@ -11,7 +11,7 @@ module.exports = {
     try {
       //
     } catch (err) {
-      return res.sendStatus(500)
+      return res.sendStatus(500);
     }
-  }
-}
+  },
+};
